@@ -5,7 +5,7 @@ metadata:
   labels:
     app: pvc-pod
 spec:
-  replicas: 2  # Number of replicas (adjust as needed)
+  replicas: 1  # Number of replicas (adjust as needed)
   selector:
     matchLabels:
       app: pvc-pod
