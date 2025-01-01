@@ -121,7 +121,8 @@ spec:
 ### ArgoCD Application Structure 📊
 This diagram represents the structure of the ArgoCD application configuration.
 
-![image](https://github.com/user-attachments/assets/7e5918e0-3023-4658-8821-4b4249bb9287)
+<img width="1472" alt="image" src="https://github.com/user-attachments/assets/4a6a115b-3493-4dfd-a1f2-a47031b8a188" />
+
 
 
 ### Deployment with ArgoCD ⚙️
