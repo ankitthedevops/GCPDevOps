@@ -17,7 +17,7 @@ To install ArgoCD in your Kubernetes cluster, run the following commands:
 
 ```bash
 kubectl create namespace argocd
-kubectl apply -n argocd -f [https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml](https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml) 
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml 
 ```
 
 This will set up ArgoCD in the argocd namespace.
@@ -122,7 +122,6 @@ spec:
 This diagram represents the structure of the ArgoCD application configuration.
 
 <img width="1472" alt="image" src="https://github.com/user-attachments/assets/4a6a115b-3493-4dfd-a1f2-a47031b8a188" />
-
 
 
 ### Deployment with ArgoCD ⚙️
