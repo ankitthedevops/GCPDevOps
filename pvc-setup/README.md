@@ -184,5 +184,3 @@ kubectl delete pv demo-pv
 ---
 
 This guide demonstrates a basic setup for Kubernetes persistent storage and load testing. For more advanced configurations, consider using StatefulSets, custom monitoring tools, or scaling mechanisms.
-
-.
