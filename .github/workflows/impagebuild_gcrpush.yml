@@ -17,3 +17,21 @@ jobs:
 
     - name: Set up Docker
       uses: docker/setup-buildx-action@v2  
+      
+    - name: Authenticate to GCP using Workload Identity Federation
+      uses: google-github-actions/auth@v1
+      with:
+        workload_identity_provider: "projects/702269007706/locations/global/workloadIdentityPools/ghaction/providers/github"
+        service_account: "githubaction@devops-444320.iam.gserviceaccount.com"
+        
+    - name: Configure Docker for Google Cloud
+      run: |
+        gcloud auth configure-docker us-central1-docker.pkg.dev
+
+    - name: Build Docker image
+      run: |
+        docker build -t us-central1-docker.pkg.dev/devops-444320/simple-application/my-image:latest cicd_pythonapp/
+
+    - name: Push Docker image to Artifact Registry
+      run: |
+        docker push us-central1-docker.pkg.dev/devops-444320/simple-application/my-image:latest
