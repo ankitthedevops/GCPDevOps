@@ -17,4 +17,4 @@ spec:
     spec:
       containers:
       - name: my-app
-        image: ankitthedevops/app:latest
+        image: ankitthedevops/app:v1
