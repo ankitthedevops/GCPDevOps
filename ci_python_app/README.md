@@ -12,7 +12,7 @@ This repository contains a FastAPI-based application showcasing a modern login p
 ### Project Structure 📁
 
 ```
-ci-python-app/
+ci_python_app/
 ├── app/
 │   ├── main.py            # FastAPI application with login page
 │   └── __init__.py   
