@@ -1,0 +1,5 @@
+1. Cluster create
+2. cluster connect
+3. Create namespace
+4. Agro image update install: kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj-labs/argocd-image-updater/stable/manifests/install.yaml
+5. 
