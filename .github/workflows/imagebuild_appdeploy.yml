@@ -1,9 +1,7 @@
 name: Workflow to build the image and Deploy the application
 
 on:
-  pull_request:
-    types: 
-      - closed
+  push:
     paths:
       - 'simple_python_app/**'
    
@@ -55,28 +53,6 @@ jobs:
       run: |
         COMMIT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
         sed -i "s/tag: .*/tag: ${COMMIT_SHA}/" helm_gke_deployment/simple-deployment/values.yaml
-
-    - name: Create a new branch
-      run: |
-        BRANCH_NAME="update-tag-${{ github.run_id }}"
-        git config --global user.email "ankitsingh.devops@gmail.com"
-        git config --global user.name "ankitthedevops"
-        git checkout -b $BRANCH_NAME
-        git add helm_gke_deployment/simple-deployment/values.yaml
-        git commit -m "Update tag in Helm chart to ${COMMIT_SHA}"
-        git push origin $BRANCH_NAME
-
-    - name: Create a pull request
-      uses: peter-evans/create-pull-request@v5
-      with:
-        token: ${{ secrets.GHA_TOKEN }}
-        commit-message: "Update tag in Helm chart to ${COMMIT_SHA}"
-        branch: update-tag-${{ github.run_id }}
-        base: main
-        title: "Update Helm chart tag to ${COMMIT_SHA}"
-        body: |
-          This PR updates the Helm chart tag to `${COMMIT_SHA}`.
-
     
  
 
