@@ -28,12 +28,12 @@ jobs:
     - name: Buld the image
       run: |
        COMMIT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
-       docker build -t ${{ vars.DOCKERUSER}}/myimage:${ COMMIT_SHA } simple_python_app/
+       docker build -t ${{ vars.DOCKERUSER}}/myimage:${COMMIT_SHA} simple_python_app/
 
     - name: Push image to Dockerhub
       run: |
        COMMIT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
-       docker push ${{ vars.DOCKERUSER}}/myimage:${ COMMIT_SHA }
+       docker push ${{ vars.DOCKERUSER}}/myimage:${COMMIT_SHA}
  
   update-newtag-in-helm-chart:
     runs-on: ubuntu-latest
