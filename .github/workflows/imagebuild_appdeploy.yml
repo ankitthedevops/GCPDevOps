@@ -51,6 +51,4 @@ jobs:
     - name: Delete Kubernetes deployment
       run: |
         kubectl delete pod -all --namespace=default
-
-
   
