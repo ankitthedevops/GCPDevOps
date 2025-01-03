@@ -2,7 +2,7 @@ replicaCount: 2
 
 image:
   repository: ankitthedevops/myimage
-  tag: ${COMMIT_SHA}
+  tag: 2f40365
   pullPolicy: IfNotPresent
 
 podLabels:
