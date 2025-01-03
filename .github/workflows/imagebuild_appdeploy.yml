@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
@@ -33,3 +32,31 @@ jobs:
     - name: Push image to Dockerhub
       run: |
        docker push ${{ vars.DOCKERUSER}}/myimage:${{github.run_id}}
+ 
+  update-newtag-in-helm-chart:
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+    
+    steps:
+    - name: Check out the code
+      uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.GHA_TOKEN }}
+    - name: Update tag in Helm chart
+      run: |
+        sed -i 's/tag: .*/tag: "${{github.run_id}}"/' helm_gke_deployment/simple-deployment/values.yaml
+
+    - name: Commit and push changes
+      run: |
+        git config --global user.email "ankitsingh.devops@gmail.com"
+        git config --global user.name "ankitthedevops"
+        git add helm_gke_deployment/simple-deployment/values.yaml
+        git commit -m "Update tag in Helm chart"
+        git push
+
+    
+ 
+
