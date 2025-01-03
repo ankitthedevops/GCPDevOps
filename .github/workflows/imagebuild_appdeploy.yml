@@ -1,9 +1,9 @@
 name: Workflow to build the image and Deploy the application
 
-on: 
+on:
   push:
-    branches:
-      - main
+    paths:
+      - 'simple_python_app/**'
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
