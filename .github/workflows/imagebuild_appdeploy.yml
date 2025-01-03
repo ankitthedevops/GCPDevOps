@@ -28,7 +28,7 @@ jobs:
 
     - name: Buld the image
       run: |
-       docker build -t ${{ vars.DOCKERUSER}}/myimage simple_python_app/
+       docker build -t ${{ vars.DOCKERUSER}}/myimage:${{github.run_id}} simple_python_app/
 
     - name: Push image to Dockerhub
       run: |
