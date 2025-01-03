@@ -1,7 +1,7 @@
 name: Workflow to build the image and Deploy the application
 
 on:
-  push:
+  pull_request:
     paths:
       - 'simple_python_app/**'
 jobs:
