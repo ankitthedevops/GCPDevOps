@@ -50,7 +50,8 @@ jobs:
         token: ${{ secrets.GHA_TOKEN }}
     - name: Update tag in Helm chart
       run: |
-        sed -i 's/tag: .*/tag: "${{github.run_id}}"/' helm_gke_deployment/simple-deployment/values.yaml
+        COMMIT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
+        sed -i 's/tag: .*/tag: "${COMMIT_SHA}"/' helm_gke_deployment/simple-deployment/values.yaml
 
     - name: Commit and push changes
       run: |
