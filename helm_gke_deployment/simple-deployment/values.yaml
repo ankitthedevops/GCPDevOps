@@ -2,7 +2,7 @@ replicaCount: 2
 
 image:
   repository: ankitthedevops/myimage
-  tag: latest
+  tag: "12598260040"
   pullPolicy: IfNotPresent
 
 podLabels:
