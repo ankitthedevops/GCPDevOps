@@ -2,8 +2,11 @@ name: Workflow to build the image and Deploy the application
 
 on:
   pull_request:
+    types: 
+      - closed
     paths:
       - 'simple_python_app/**'
+   
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
