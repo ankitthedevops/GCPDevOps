@@ -29,6 +29,7 @@ jobs:
       run: |
        COMMIT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
        docker build -t ${{ vars.DOCKERUSER}}/myimage:${COMMIT_SHA} simple_python_app/
+       docker images
 
     - name: Push image to Dockerhub
       run: |
