@@ -38,6 +38,19 @@ jobs:
       run: |
         docker push us-central1-docker.pkg.dev/devops-444320/simple-application/my-image:latest
 
+    # Add steps to connect to the Kubernetes cluster and delete the deployment
+    - name: Set up kubectl
+      uses: azure/setup-kubectl@v3
+      with:
+        version: 'latest'
+
+    - name: Authenticate to Kubernetes cluster
+      run: |
+        gcloud container clusters get-credentials cluster-1 --zone us-central1-c --project devops-444320
+
+    - name: Delete Kubernetes deployment
+      run: |
+        kubectl delete pod -all --namespace=default
 
 
   
