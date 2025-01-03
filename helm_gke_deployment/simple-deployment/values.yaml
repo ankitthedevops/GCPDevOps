@@ -1,7 +1,7 @@
 replicaCount: 2
 
 image:
-  repository: nginx
+  repository: ankitthedevops/myimage
   tag: latest
   pullPolicy: IfNotPresent
 
