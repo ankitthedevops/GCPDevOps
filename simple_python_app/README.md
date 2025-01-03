@@ -158,5 +158,4 @@ To avoid incurring charges, delete the resources when you're done:
 kubectl delete -f service.yaml
 kubectl delete -f deployment.yaml
 ```
-
 ---
