@@ -68,7 +68,7 @@ jobs:
       with:
         token: ${{ secrets.GHA_TOKEN }}
         commit-message: "Update tag in Helm chart to ${COMMIT_SHA}"
-        branch: ${{ github.actor }}/update-tag-${{ github.run_id }}
+        branch: update-tag-${{ github.run_id }}
         base: main
         title: "Update Helm chart tag to ${COMMIT_SHA}"
         body: |
