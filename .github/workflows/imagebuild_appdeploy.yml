@@ -51,7 +51,7 @@ jobs:
     - name: Update tag in Helm chart
       run: |
         COMMIT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
-        sed -i 's/tag: .*/tag: "${COMMIT_SHA}"/' helm_gke_deployment/simple-deployment/values.yaml
+        sed -i 's/tag: .*/tag: ${COMMIT_SHA}/' helm_gke_deployment/simple-deployment/values.yaml
 
     - name: Commit and push changes
       run: |
