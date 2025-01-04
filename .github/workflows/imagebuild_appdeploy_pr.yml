@@ -2,6 +2,8 @@ name: Workflow to build the image and Deploy the application
 
 on:
   pull_request:
+    branches:
+      - main
     types: 
       - closed
     paths:
