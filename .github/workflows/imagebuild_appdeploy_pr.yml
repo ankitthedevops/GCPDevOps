@@ -58,25 +58,20 @@ jobs:
 
     - name: Create a new branch
       run: |
-        BRANCH_NAME="update-tag-${{ github.run_id }}"
+        BRANCH_NAME="update-helm-tag-${{ github.sha }}"
         git config --global user.email "ankitsingh.devops@gmail.com"
         git config --global user.name "ankitthedevops"
         git checkout -b $BRANCH_NAME
         git add helm_gke_deployment/simple-deployment/values.yaml
         git commit -m "Update tag in Helm chart to ${COMMIT_SHA}"
-        git push origin $BRANCH_NAME
+        git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD) --no-verify
 
-    - name: Install GH Util
-      run: |
-        type -p curl >/dev/null || (sudo apt update && sudo apt install curl -y)
-        curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
-        && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
-        && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
-        && sudo apt update \
-        && sudo apt install gh -y
-     
-    - name: Create Pull Request 📤
-      env:
-        GITHUB_TOKEN: ${{ secrets.GHA_TOKEN }}
-      run: |
-        gh pr create --title 'Image Tag Update' --body 'Image Tag Update hoga'
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v4
+      with:
+        title: "Update Helm chart tag to $COMMIT_SHA"
+        body: "This PR updates the Helm chart tag to the new commit SHA: $COMMIT_SHA."
+        base: main
+        branch: update-helm-tag-${{ github.sha }}
+        token: ${{ secrets.GHA_TOKEN }}
+        branch-suffix: timestamp
