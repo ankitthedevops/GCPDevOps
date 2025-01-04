@@ -4,7 +4,6 @@ on:
   push:
     paths:
       - 'simple_python_app/**'
-   
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
@@ -28,14 +27,10 @@ jobs:
 
     - name: Buld the image
       run: |
-       COMMIT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
-       docker build -t ${{ vars.DOCKERUSER}}/myimage:${COMMIT_SHA} simple_python_app/
-       docker images
-
+       docker build -t ${{ vars.DOCKERUSER}}/myimage:${{github.run_id}} simple_python_app/
     - name: Push image to Dockerhub
       run: |
-       COMMIT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
-       docker push ${{ vars.DOCKERUSER}}/myimage:${COMMIT_SHA}
+       docker push ${{ vars.DOCKERUSER}}/myimage:${{github.run_id}}
  
   update-newtag-in-helm-chart:
     runs-on: ubuntu-latest
@@ -51,8 +46,12 @@ jobs:
         token: ${{ secrets.GHA_TOKEN }}
     - name: Update tag in Helm chart
       run: |
-        COMMIT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
-        sed -i "s/tag: .*/tag: ${COMMIT_SHA}/" helm_gke_deployment/simple-deployment/values.yaml
-    
- 
-
+        sed -i 's/tag: .*/tag: "${{github.run_id}}"/' helm_gke_deployment/simple-deployment/values.yaml
+    - name: Commit and push changes
+      run: |
+        git config --global user.email "ankitsingh.devops@gmail.com"
+        git config --global user.name "ankitthedevops"
+        git pull
+        git add helm_gke_deployment/simple-deployment/values.yaml
+        git commit -m "Update tag in Helm chart"
+        git push
