@@ -32,7 +32,7 @@ jobs:
           COMMIT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
           echo "Commit SHA: $COMMIT_SHA"
           docker build -t ${{ vars.DOCKERUSER }}/my-fastapi-image-1:$COMMIT_SHA simple_python_app/
-          docker push ${{ secrets.DOCKERPASS }}/my-fastapi-image-1:$COMMIT_SHA
+          docker push ${{ vars.DOCKERUSER }}/my-fastapi-image-1:$COMMIT_SHA
 
   update-newtag-in-helm-chart:
     runs-on: ubuntu-latest
