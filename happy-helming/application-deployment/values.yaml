@@ -21,7 +21,7 @@ deployment:
           - containerPort: 80
 
 
-HorizontalPodAutoscaler:
+horizontalPodAutoscaler:
   kind: HorizontalPodAutoscaler
   metadata:
     name: my-app-hpa

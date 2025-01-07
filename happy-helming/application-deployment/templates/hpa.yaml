@@ -1,11 +1,11 @@
 apiVersion: autoscaling/v2
-kind: {{ .Values.HorizontalPodscalar.kind}}
+kind: {{ .Values.horizontalPodAutoscaler.kind}}
 metadata:
-  name: {{ .Values.HorizontalPodscalar.metadata.name}}
+  name: {{ .Values.horizontalPodAutoscaler.metadata.name}}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
-    kind: {{ .Values.HorizontalPodscalar.spec.scaleTargetRef.kind}}
+    kind: {{ .Values.horizontalPodAutoscaler.spec.scaleTargetRef.kind}}
     name: my-deployment
   minReplicas: 1
   maxReplicas: 10
