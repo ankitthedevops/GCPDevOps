@@ -1,8 +1,11 @@
 kind: "Deployment"
 metadata:
   name: "basic-deployment"
+  labels:
+    app: "basic"
 spec:
   replicas: 1
   containers:
-    - name: "basic"
-      image: "nginx:latest"
+  - name: "container-1"
+    image: "nginx:latest"
+    port: 80
