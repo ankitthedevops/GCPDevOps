@@ -1,6 +1,7 @@
 name: Cluster Create Automation
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
