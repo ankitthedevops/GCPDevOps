@@ -1,1 +1,75 @@
+name: Cluster Create Automation
 
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  cluster-create-automation:
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+  
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Google Cloud Login
+        uses: google-github-actions/auth@v2.1.0
+        with:
+          workload_identity_provider: "projects/702269007706/locations/global/workloadIdentityPools/ghaction/providers/github"
+          service_account: "githubaction@devops-444320.iam.gserviceaccount.com"
+
+      - name: Create cluster
+        run: |
+          gcloud container clusters create gke-cluster --region=us-central1 --num-nodes=2 --disk-size=10 || echo "Cluster already exists"
+          
+      - name: Verify cluster is created
+        run: |
+          gcloud container clusters list 
+
+      - name: Connect to cluster
+        run: |
+          # Ensure gcloud CLI is configured and authenticate using the plugin
+          gcloud container clusters get-credentials gke-cluster --region us-central1 --project nitesh-gcp-444718
+          echo "connected to cluster"
+
+      - name: Get cluster credentials 
+        uses: google-github-actions/get-gke-credentials@v1 
+        with:
+          cluster_name: gke-cluster
+          location: us-central1
+          project: devops-444320
+
+      # - name: Check and create namespace for ArgoCD
+      #   run: |
+      #     if kubectl get namespace argocd; then
+      #       echo "Namespace 'argocd' already exists, skipping creation."
+      #     else
+      #       kubectl create namespace argocd
+      #       echo "Namespace 'argocd' created."
+      #     fi
+      
+      # - name: Check and install ArgoCD
+      #   run: |
+      #     if kubectl get deployments -n argocd | grep -q argocd-server; then
+      #       echo "ArgoCD is already installed, skipping installation."
+      #     else
+      #       kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+      #       echo "ArgoCD installed."
+      #     fi
+      
+
+      # - name: Verify argocd installation
+      #   run: |
+      #     kubectl get pods -n argocd 
+
+      # - name: Expose argocd service via load balancer
+      #   run: |
+      #     cd deployment-via-argocd
+      #     kubectl apply -f service.yaml -n argocd
+      #     kubectl get service -n argocd 
+      # 
