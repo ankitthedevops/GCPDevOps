@@ -35,7 +35,7 @@ jobs:
       - name: Connect to cluster
         run: |
           # Ensure gcloud CLI is configured and authenticate using the plugin
-          gcloud container clusters get-credentials gke-cluster --region us-central1 --project nitesh-gcp-444718
+          gcloud container clusters get-credentials gke-cluster --region us-central1 --project devops-444320
           echo "connected to cluster"
 
       - name: Get cluster credentials 
