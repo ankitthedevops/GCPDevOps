@@ -26,7 +26,7 @@ jobs:
 
       - name: Create cluster
         run: |
-          gcloud container clusters create gke-cluster --region=us-central1 --num-nodes=2 --disk-size=10 || echo "Cluster already exists"
+          gcloud container clusters create gke-cluster --zone=us-central1-a --num-nodes=2 --disk-size=10 || echo "Cluster already exists"
           
       - name: Verify cluster is created
         run: |
@@ -35,14 +35,14 @@ jobs:
       - name: Connect to cluster
         run: |
           # Ensure gcloud CLI is configured and authenticate using the plugin
-          gcloud container clusters get-credentials gke-cluster --region us-central1 --project devops-444320
+          gcloud container clusters get-credentials gke-cluster --zone us-central1-a --project devops-444320
           echo "connected to cluster"
 
       - name: Get cluster credentials 
         uses: google-github-actions/get-gke-credentials@v1 
         with:
           cluster_name: gke-cluster
-          location: us-central1
+          location: us-central1-a
           project: devops-444320
 
       # - name: Check and create namespace for ArgoCD
